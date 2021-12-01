@@ -18,6 +18,17 @@ namespace ProvaTT.Controllers
             return View();
         }
 
+        public void RegistrarUsuario(Usuario usuario)
+        {
+            RegistroAcesso registrar = new RegistroAcesso();
+            registrar.UsuarioId = usuario.Id;
+            registrar.DataAcesso = DateTime.Now;
+            registrar.Usuario = usuario;
+
+            db.RegistroAcesso.Add(registrar);
+            db.SaveChanges();
+        }
+
         [HttpPost]
         public ActionResult Acessar(string login, string senha)
         {
@@ -32,7 +43,7 @@ namespace ProvaTT.Controllers
                 FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1,
                                                                             usuario.Nome,
                                                                             DateTime.Now,
-                                                                            DateTime.Now.AddMinutes(5),
+                                                                            DateTime.Now.AddMinutes(10),
                                                                             false,
                                                                             usuario.Id.ToString());
                 string encTicket = FormsAuthentication.Encrypt(ticket);
@@ -40,6 +51,8 @@ namespace ProvaTT.Controllers
                 HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encTicket);
                 cookie.Expires = ticket.Expiration;
                 Response.Cookies.Add(cookie);
+
+                RegistrarUsuario(usuario);
 
                 return RedirectToAction("Index", "Home");
             }

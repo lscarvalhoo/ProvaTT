@@ -13,6 +13,7 @@ namespace ProvaTT.DAO
         public DbSet<Usuario> Usuario { get; set; }
         public DbSet<Curso> Curso { get; set; }
         public DbSet<Inscricao> Inscricao { get; set; }
+        public DbSet<RegistroAcesso> RegistroAcesso { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
