@@ -126,6 +126,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CursoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
@@ -136,6 +137,10 @@
     <Compile Include="Migrations\202112010110502_criar_Usuario.cs" />
     <Compile Include="Migrations\202112010110502_criar_Usuario.designer.cs">
       <DependentUpon>202112010110502_criar_Usuario.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112010120110_criar_Cursos.cs" />
+    <Compile Include="Migrations\202112010120110_criar_Cursos.Designer.cs">
+      <DependentUpon>202112010120110_criar_Cursos.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Curso.cs" />
@@ -184,6 +189,11 @@
     <Content Include="Views\Usuario\Edit.cshtml" />
     <Content Include="Views\Usuario\Index.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\Curso\Create.cshtml" />
+    <Content Include="Views\Curso\Delete.cshtml" />
+    <Content Include="Views\Curso\Details.cshtml" />
+    <Content Include="Views\Curso\Edit.cshtml" />
+    <Content Include="Views\Curso\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -204,6 +214,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202112010110502_criar_Usuario.resx">
       <DependentUpon>202112010110502_criar_Usuario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112010120110_criar_Cursos.resx">
+      <DependentUpon>202112010120110_criar_Cursos.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
