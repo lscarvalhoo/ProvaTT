@@ -128,7 +128,9 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\CursoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InscricaoController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\LogoffController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="DAO\Contexto.cs" />
     <Compile Include="Global.asax.cs">
@@ -142,8 +144,13 @@
     <Compile Include="Migrations\202112010120110_criar_Cursos.Designer.cs">
       <DependentUpon>202112010120110_criar_Cursos.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202112010213120_criar_Inscricoes.cs" />
+    <Compile Include="Migrations\202112010213120_criar_Inscricoes.Designer.cs">
+      <DependentUpon>202112010213120_criar_Inscricoes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Curso.cs" />
+    <Compile Include="Models\Inscricao.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -194,6 +201,12 @@
     <Content Include="Views\Curso\Details.cshtml" />
     <Content Include="Views\Curso\Edit.cshtml" />
     <Content Include="Views\Curso\Index.cshtml" />
+    <Content Include="Views\Inscricao\Create.cshtml" />
+    <Content Include="Views\Inscricao\Delete.cshtml" />
+    <Content Include="Views\Inscricao\Details.cshtml" />
+    <Content Include="Views\Inscricao\Edit.cshtml" />
+    <Content Include="Views\Inscricao\Index.cshtml" />
+    <Content Include="Views\Logoff\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -217,6 +230,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202112010120110_criar_Cursos.resx">
       <DependentUpon>202112010120110_criar_Cursos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112010213120_criar_Inscricoes.resx">
+      <DependentUpon>202112010213120_criar_Inscricoes.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
