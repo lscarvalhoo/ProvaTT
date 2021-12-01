@@ -16,6 +16,7 @@ namespace ProvaTT.Controllers
         private Contexto db = new Contexto();
 
         // GET: Inscricaos
+        [Authorize]
         public ActionResult Index()
         {
             var inscricao = db.Inscricao.Include(i => i.Curso).Include(i => i.Usuario);
@@ -23,6 +24,7 @@ namespace ProvaTT.Controllers
         }
 
         // GET: Inscricaos/Details/5
+        [Authorize]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -38,6 +40,7 @@ namespace ProvaTT.Controllers
         }
 
         // GET: Inscricaos/Create
+        [Authorize]
         public ActionResult Create()
         {
             ViewBag.CursoId = new SelectList(db.Curso, "Id", "Id");
@@ -49,6 +52,7 @@ namespace ProvaTT.Controllers
         // Para se proteger de mais ataques, habilite as propriedades específicas às quais você quer se associar. Para 
         // obter mais detalhes, veja https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Nome,CPF,Email,Telefone,CursoId,UsuarioId,DataInscricao")] Inscricao inscricao)
         {
@@ -65,6 +69,7 @@ namespace ProvaTT.Controllers
         }
 
         // GET: Inscricaos/Edit/5
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -85,6 +90,7 @@ namespace ProvaTT.Controllers
         // Para se proteger de mais ataques, habilite as propriedades específicas às quais você quer se associar. Para 
         // obter mais detalhes, veja https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Nome,CPF,Email,Telefone,CursoId,UsuarioId,DataInscricao")] Inscricao inscricao)
         {
@@ -100,6 +106,7 @@ namespace ProvaTT.Controllers
         }
 
         // GET: Inscricaos/Delete/5
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -115,6 +122,7 @@ namespace ProvaTT.Controllers
         }
 
         // POST: Inscricaos/Delete/5
+        [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
