@@ -155,6 +155,10 @@
     <Compile Include="Migrations\202112010237198_criar_RegistroAcesso.Designer.cs">
       <DependentUpon>202112010237198_criar_RegistroAcesso.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202112020311423_adicionando_Usuario.cs" />
+    <Compile Include="Migrations\202112020311423_adicionando_Usuario.Designer.cs">
+      <DependentUpon>202112020311423_adicionando_Usuario.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Curso.cs" />
     <Compile Include="Models\Inscricao.cs" />
@@ -246,6 +250,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202112010237198_criar_RegistroAcesso.resx">
       <DependentUpon>202112010237198_criar_RegistroAcesso.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112020311423_adicionando_Usuario.resx">
+      <DependentUpon>202112020311423_adicionando_Usuario.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

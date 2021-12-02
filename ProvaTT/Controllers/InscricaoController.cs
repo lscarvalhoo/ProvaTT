@@ -54,12 +54,12 @@ namespace ProvaTT.Controllers
         [HttpPost] 
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Nome,CPF,Email,Telefone,CursoId,UsuarioId,DataInscricao")] Inscricao inscricao)
-        {
-            Curso curso = db.Curso.Where(c => c.Id == inscricao.CursoId).FirstOrDefault();
-            int quantidadeInscricaoCurso = db.Inscricao.Where(i => i.CursoId == inscricao.CursoId).ToList().Count();
-
-            if (quantidadeInscricaoCurso >= curso.QuantidadeVagas)
+        { 
+            if(verificaQuantidadeVagas(inscricao))
                 MessageBox.Show("Quantidade de vagas excedidas!");
+            
+            if(verificaCpfJaCadastrado(inscricao))
+                MessageBox.Show("CPF JÀ CADASTRADO!"); 
 
             if (ModelState.IsValid)
             {
@@ -71,6 +71,27 @@ namespace ProvaTT.Controllers
             ViewBag.CursoId = new SelectList(db.Curso, "Id", "Id", inscricao.CursoId);
             ViewBag.UsuarioId = new SelectList(db.Usuario, "Id", "Login", inscricao.UsuarioId);
             return View(inscricao);
+        }
+            
+        private bool verificaCpfJaCadastrado(Inscricao inscricao)
+        {
+            int verificaMatriculaComMesmoCPF = db.Inscricao.Where(i => i.CPF == inscricao.CPF).ToList().Count();
+
+            if (verificaMatriculaComMesmoCPF > 0)
+                return true;
+
+            return false;
+        }
+
+        private bool verificaQuantidadeVagas(Inscricao inscricao)
+        { 
+            Curso curso = db.Curso.Where(c => c.Id == inscricao.CursoId).FirstOrDefault();
+            int quantidadeInscricaoCurso = db.Inscricao.Where(i => i.CursoId == inscricao.CursoId).ToList().Count();
+
+            if (quantidadeInscricaoCurso >= curso.QuantidadeVagas)
+                return true;
+
+            return false;
         }
 
         [Authorize]
