@@ -15,6 +15,7 @@ namespace ProvaTT.Controllers
     public class InscricaoController : Controller
     {
         private Contexto db = new Contexto();
+        private HttpCookie cookieCollection;
         [Authorize]
 
 
@@ -59,7 +60,13 @@ namespace ProvaTT.Controllers
                 MessageBox.Show("Quantidade de vagas excedidas!");
             
             if(verificaCpfJaCadastrado(inscricao))
-                MessageBox.Show("CPF JÀ CADASTRADO!"); 
+                MessageBox.Show("CPF JÀ CADASTRADO!");
+
+            string userName = User.Identity.Name;
+            Usuario usuario = db.Usuario.Where(u => u.Nome == userName).FirstOrDefault();
+
+            inscricao.UsuarioId = usuario.Id;
+            inscricao.Usuario = usuario;
 
             if (ModelState.IsValid)
             {
