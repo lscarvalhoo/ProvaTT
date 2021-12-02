@@ -6,7 +6,8 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using ProvaTT.DAO;
+using System.Windows;
+using ProvaTT.DAO; 
 using ProvaTT.Models;
 
 namespace ProvaTT.Controllers
@@ -14,8 +15,9 @@ namespace ProvaTT.Controllers
     public class InscricaoController : Controller
     {
         private Contexto db = new Contexto();
+        [Authorize]
 
-        // GET: Inscricaos
+
         [Authorize]
         public ActionResult Index()
         {
@@ -23,7 +25,6 @@ namespace ProvaTT.Controllers
             return View(inscricao.ToList());
         }
 
-        // GET: Inscricaos/Details/5
         [Authorize]
         public ActionResult Details(int? id)
         {
@@ -39,36 +40,39 @@ namespace ProvaTT.Controllers
             return View(inscricao);
         }
 
-        // GET: Inscricaos/Create
         [Authorize]
         public ActionResult Create()
         {
             ViewBag.CursoId = new SelectList(db.Curso, "Id", "Id");
+            ViewBag.Valor = new SelectList(db.Curso, "Valor", "Valor");
             ViewBag.UsuarioId = new SelectList(db.Usuario, "Id", "Login");
+           
             return View();
         }
 
-        // POST: Inscricaos/Create
-        // Para se proteger de mais ataques, habilite as propriedades específicas às quais você quer se associar. Para 
-        // obter mais detalhes, veja https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
         [Authorize]
+        [HttpPost] 
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Nome,CPF,Email,Telefone,CursoId,UsuarioId,DataInscricao")] Inscricao inscricao)
         {
+            Curso curso = db.Curso.Where(c => c.Id == inscricao.CursoId).FirstOrDefault();
+            int quantidadeInscricaoCurso = db.Inscricao.Where(i => i.CursoId == inscricao.CursoId).ToList().Count();
+
+            if (quantidadeInscricaoCurso >= curso.QuantidadeVagas)
+                MessageBox.Show("Quantidade de vagas excedidas!");
+
             if (ModelState.IsValid)
             {
                 db.Inscricao.Add(inscricao);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
+             
             ViewBag.CursoId = new SelectList(db.Curso, "Id", "Id", inscricao.CursoId);
             ViewBag.UsuarioId = new SelectList(db.Usuario, "Id", "Login", inscricao.UsuarioId);
             return View(inscricao);
         }
 
-        // GET: Inscricaos/Edit/5
         [Authorize]
         public ActionResult Edit(int? id)
         {
@@ -105,7 +109,7 @@ namespace ProvaTT.Controllers
             return View(inscricao);
         }
 
-        // GET: Inscricaos/Delete/5
+        // GET: Inscricaos/Delete/5 
         [Authorize]
         public ActionResult Delete(int? id)
         {
@@ -120,11 +124,10 @@ namespace ProvaTT.Controllers
             }
             return View(inscricao);
         }
-
-        // POST: Inscricaos/Delete/5
-        [Authorize]
+         
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult DeleteConfirmed(int id)
         {
             Inscricao inscricao = db.Inscricao.Find(id);
