@@ -12,11 +12,10 @@ using ProvaTT.Models;
 
 namespace ProvaTT.Controllers
 {
+    [Authorize]
     public class InscricaoController : Controller
     {
-        private Contexto db = new Contexto();
-        private HttpCookie cookieCollection;
-        [Authorize]
+        private Contexto db = new Contexto(); 
 
 
         [Authorize]
@@ -54,13 +53,23 @@ namespace ProvaTT.Controllers
         [Authorize]
         [HttpPost] 
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Nome,CPF,Email,Telefone,CursoId,UsuarioId,DataInscricao")] Inscricao inscricao)
-        { 
-            if(verificaQuantidadeVagas(inscricao))
+        public ActionResult Create([Bind(Include = "Id, Nome, CPF, Email, Telefone, CursoId, UsuarioId, DataInscricao")] Inscricao inscricao)
+        {
+            if (inscricao.Nome == null)
+            {
+                MessageBox.Show("Inscrição não preenchida!");
+                RedirectToAction("Create");
+            }
+
+            if (verificaQuantidadeVagas(inscricao)) { 
                 MessageBox.Show("Quantidade de vagas excedidas!");
-            
-            if(verificaCpfJaCadastrado(inscricao))
-                MessageBox.Show("CPF JÀ CADASTRADO!");
+                RedirectToAction("Create");
+            }
+
+            if (verificaCpfJaCadastrado(inscricao))
+            {
+                MessageBox.Show("CPF JÁ CADASTRADO!"); 
+            }
 
             string userName = User.Identity.Name;
             if (string.IsNullOrEmpty(userName))
@@ -71,7 +80,7 @@ namespace ProvaTT.Controllers
             inscricao.UsuarioId = usuario.Id;
             inscricao.Usuario = usuario;
 
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && !verificaCpfJaCadastrado(inscricao))
             {
                 db.Inscricao.Add(inscricao);
                 db.SaveChanges();
@@ -120,10 +129,7 @@ namespace ProvaTT.Controllers
             ViewBag.UsuarioId = new SelectList(db.Usuario, "Id", "Login", inscricao.UsuarioId);
             return View(inscricao);
         }
-
-        // POST: Inscricaos/Edit/5
-        // Para se proteger de mais ataques, habilite as propriedades específicas às quais você quer se associar. Para 
-        // obter mais detalhes, veja https://go.microsoft.com/fwlink/?LinkId=317598.
+ 
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
@@ -139,8 +145,7 @@ namespace ProvaTT.Controllers
             ViewBag.UsuarioId = new SelectList(db.Usuario, "Id", "Login", inscricao.UsuarioId);
             return View(inscricao);
         }
-
-        // GET: Inscricaos/Delete/5 
+ 
         [Authorize]
         public ActionResult Delete(int? id)
         {

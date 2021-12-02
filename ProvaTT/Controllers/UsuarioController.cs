@@ -15,15 +15,13 @@ namespace ProvaTT.Controllers
     {
         private Contexto db = new Contexto();
         [Authorize]
-
-        // GET: Usuarios
+ 
         [Authorize]
         public ActionResult Index()
         {
             return View(db.Usuario.ToList());
         }
-
-        // GET: Usuarios/Details/5
+         
         [Authorize]
         public ActionResult Details(int? id)
         {
@@ -38,17 +36,13 @@ namespace ProvaTT.Controllers
             }
             return View(usuario);
         }
-
-        // GET: Usuarios/Create
+         
         [Authorize]
         public ActionResult Create()
         {
             return View();
         }
-
-        // POST: Usuarios/Create
-        // Para se proteger de mais ataques, habilite as propriedades específicas às quais você quer se associar. Para 
-        // obter mais detalhes, veja https://go.microsoft.com/fwlink/?LinkId=317598.
+ 
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
@@ -63,8 +57,7 @@ namespace ProvaTT.Controllers
 
             return View(usuario);
         }
-
-        // GET: Usuarios/Edit/5
+         
         [Authorize]
         public ActionResult Edit(int? id)
         {
@@ -80,9 +73,6 @@ namespace ProvaTT.Controllers
             return View(usuario);
         }
 
-        // POST: Usuarios/Edit/5
-        // Para se proteger de mais ataques, habilite as propriedades específicas às quais você quer se associar. Para 
-        // obter mais detalhes, veja https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
@@ -96,8 +86,7 @@ namespace ProvaTT.Controllers
             }
             return View(usuario);
         }
-
-        // GET: Usuarios/Delete/5
+         
         [Authorize]
         public ActionResult Delete(int? id)
         {
@@ -112,8 +101,7 @@ namespace ProvaTT.Controllers
             }
             return View(usuario);
         }
-
-        // POST: Usuarios/Delete/5
+         
         [HttpPost, ActionName("Delete")]
         [Authorize]
         [ValidateAntiForgeryToken]

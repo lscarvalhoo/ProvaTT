@@ -14,8 +14,7 @@ namespace ProvaTT.Controllers
     public class RegistroAcessosController : Controller
     {
         private Contexto db = new Contexto();
-
-        // GET: RegistroAcessoes
+         
         public ActionResult Index()
         {
             var registroAcesso = db.RegistroAcesso.Include(r => r.Usuario);
