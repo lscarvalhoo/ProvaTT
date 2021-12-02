@@ -63,6 +63,9 @@ namespace ProvaTT.Controllers
                 MessageBox.Show("CPF JÀ CADASTRADO!");
 
             string userName = User.Identity.Name;
+            if (string.IsNullOrEmpty(userName))
+                MessageBox.Show("Usuario não cadastrado. Operação Negada!");
+
             Usuario usuario = db.Usuario.Where(u => u.Nome == userName).FirstOrDefault();
 
             inscricao.UsuarioId = usuario.Id;
