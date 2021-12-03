@@ -38,6 +38,23 @@ namespace ProvaTT.Controllers
                 return HttpNotFound();
             }
             return View(inscricao);
+        } 
+        
+        [Authorize]
+        public ActionResult Informacoes(int? cursoId)
+        {
+            if (cursoId == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            Informacoes informacoes = new Informacoes();
+
+            informacoes.ValorCurso = db.Curso.Where(c => c.Id == cursoId).Select(v => v.Valor).FirstOrDefault();
+            informacoes.QuantidadeVagas = db.Curso.Where(c => c.Id == cursoId).Select(v => v.QuantidadeVagas).FirstOrDefault();
+            informacoes.QuantidadeInscritos = db.Inscricao.Where(i => i.CursoId == cursoId).ToList().Count();
+
+            return PartialView(informacoes);
         }
 
         [Authorize]
@@ -58,29 +75,36 @@ namespace ProvaTT.Controllers
             if (inscricao.Nome == null)
             {
                 MessageBox.Show("Inscrição não preenchida!");
-                RedirectToAction("Create");
+
+                ViewBag.CursoId = new SelectList(db.Curso, "Id", "Id", inscricao.CursoId);
+                ViewBag.UsuarioId = new SelectList(db.Usuario, "Id", "Login", inscricao.UsuarioId);
+                return View(inscricao);
             }
 
             if (verificaQuantidadeVagas(inscricao)) { 
-                MessageBox.Show("Quantidade de vagas excedidas!");
-                RedirectToAction("Create");
+                MessageBox.Show("Quantidade de vagas excedidas!"); 
+                
+                ViewBag.CursoId = new SelectList(db.Curso, "Id", "Id", inscricao.CursoId);
+                ViewBag.UsuarioId = new SelectList(db.Usuario, "Id", "Login", inscricao.UsuarioId);
+                return View(inscricao);
             }
 
             if (verificaCpfJaCadastrado(inscricao))
             {
-                MessageBox.Show("CPF JÁ CADASTRADO!"); 
+                MessageBox.Show("CPF JÁ CADASTRADO!");
+
+                ViewBag.CursoId = new SelectList(db.Curso, "Id", "Id", inscricao.CursoId);
+                ViewBag.UsuarioId = new SelectList(db.Usuario, "Id", "Login", inscricao.UsuarioId);
+                return View(inscricao);
             }
 
             string userName = User.Identity.Name;
-            if (string.IsNullOrEmpty(userName))
-                MessageBox.Show("Usuario não cadastrado. Operação Negada!");
-
             Usuario usuario = db.Usuario.Where(u => u.Nome == userName).FirstOrDefault();
 
             inscricao.UsuarioId = usuario.Id;
             inscricao.Usuario = usuario;
 
-            if (ModelState.IsValid && !verificaCpfJaCadastrado(inscricao))
+            if (ModelState.IsValid)
             {
                 db.Inscricao.Add(inscricao);
                 db.SaveChanges();

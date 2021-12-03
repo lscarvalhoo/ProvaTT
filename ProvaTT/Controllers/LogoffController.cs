@@ -10,8 +10,8 @@ namespace ProvaTT.Controllers
 {
     public class LogoffController : Controller
     {
-        private Contexto db = new Contexto();
-        // GET: Logoff
+        private Contexto db = new Contexto(); 
+
         public ActionResult Index()
         {
             return View();
