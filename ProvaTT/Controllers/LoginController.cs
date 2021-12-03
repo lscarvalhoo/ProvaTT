@@ -15,7 +15,7 @@ namespace ProvaTT.Controllers
         // GET: Login
         public ActionResult Index()
         {
-            return View();
+            return View();  
         }
 
         public void RegistrarUsuario(Usuario usuario)

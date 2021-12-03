@@ -1,0 +1,20 @@
+﻿@model ProvaTT.Controller.Inscricao.Informacoes
+
+@{
+    ViewBag.Title = "Informacoes";
+}
+
+<h2>Informacoes</h2>
+<div>
+    <h4>Comarca</h4>
+    <hr />
+    <h3>Informacoes</h3>
+    <ul>
+        @foreach(var item in Model.Informacoes)
+        {
+        <li>@item.ValorCurso</li>
+        <li>@item.QuantidadeVagas</li>
+        <li>@item.QuantidadeInscritos</li>
+        }
+    </ul>
+</div> 

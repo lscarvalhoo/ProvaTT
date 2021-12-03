@@ -1,10 +1,10 @@
 ﻿@model ProvaTT.Models.Inscricao
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Criar";
 }
 
-<h2>Create</h2>
+<h2>Criar</h2>
 
 @using (Html.BeginForm())
 {
@@ -36,7 +36,7 @@
                 @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
             </div>
-        </div>
+        </div> 
 
         <div class="form-group">
             @Html.LabelFor(model => model.Telefone, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -49,7 +49,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.CursoId, "CursoId", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("CursoId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownList("CursoId", null, htmlAttributes: new { @class = "form-control" })  
                 @Html.ValidationMessageFor(model => model.CursoId, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -61,14 +61,37 @@
                 @Html.ValidationMessageFor(model => model.DataInscricao, "", new { @class = "text-danger" })
             </div>
         </div>
-         <div class="form-group">
+        <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Create" class="btn btn-default" />
             </div>
         </div>
     </div>
 }
- 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Voltar", "Index")
 </div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div id="conteudoModal"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".btnInfo").click(function () {
+                $("conteudoModal").load("/Inscricao/Informacoes/" + id,
+                    function () {
+                        $('#myModal').modal("show");
+                    }
+                );
+            });
+        });
+    </script>
+}

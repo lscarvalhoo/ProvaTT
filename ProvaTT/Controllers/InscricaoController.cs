@@ -54,7 +54,9 @@ namespace ProvaTT.Controllers
             informacoes.QuantidadeVagas = db.Curso.Where(c => c.Id == cursoId).Select(v => v.QuantidadeVagas).FirstOrDefault();
             informacoes.QuantidadeInscritos = db.Inscricao.Where(i => i.CursoId == cursoId).ToList().Count();
 
-            return PartialView(informacoes);
+            IList<Informacoes> informacoesRetorno = (IList<Informacoes>)informacoes;
+
+            return PartialView(informacoesRetorno);
         }
 
         [Authorize]

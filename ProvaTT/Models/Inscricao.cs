@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace ProvaTT.Models
@@ -29,6 +30,8 @@ namespace ProvaTT.Models
         public DateTime DataInscricao { get; set; }
 
         public virtual Curso Curso { get; set; }
+
         public virtual Usuario Usuario { get; set; }
+
     }
 }

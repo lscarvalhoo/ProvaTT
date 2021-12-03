@@ -14,5 +14,6 @@ namespace ProvaTT.Models
         public int UsuarioId { get; set; }
 
         public virtual Usuario Usuario { get; set; }
+
     }
 }

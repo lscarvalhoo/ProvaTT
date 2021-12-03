@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<ProvaTT.Models.Inscricao>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Inscricoes";
 }
 
-<h2>Index</h2>
+<h2>Inscricoes</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Criar", "Create")
 </p>
 <table class="table">
     <tr>
@@ -60,7 +60,7 @@
         </td>
         <td>
             @Html.ActionLink("Editar", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Detalhes", "Details", new { id=item.Id }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.Id })
         </td>
     </tr>
